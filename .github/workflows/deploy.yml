@@ -26,3 +26,11 @@ jobs:
       #   run: mdbook-toc --version
       # - name: Show open-on-gh version
       #   run: mdbook-open-on-gh --version
+      - name: Build
+        run: cd apunte && mdbook build
+      - name: Publish
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apunte/book
