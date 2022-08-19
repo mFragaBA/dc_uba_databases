@@ -3,7 +3,8 @@
 [Introduccion](introduccion.md)
 
 # Primer Parcial
-- [Teórica - 18/08](./teoricas/18_08.md)
+- [Teórica - 17/08](./teoricas/17_08.md)
+- [Práctica - 19/08](./practicas/19_08.md)
 
 # Segundo Parcial
 
