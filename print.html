@@ -250,6 +250,155 @@ llevarlos a cabo.</li>
 </ol>
 <h2 id="principles-of-database-and-knowledge-base-systems-ch-2"><a class="header" href="#principles-of-database-and-knowledge-base-systems-ch-2">Principles of Database and Knowledge Base Systems (ch. 2)</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="práctica---1908"><a class="header" href="#práctica---1908">Práctica - 19/08</a></h1>
+<h2 id="presentación"><a class="header" href="#presentación">Presentación</a></h2>
+<ul>
+<li>2 parciales
+<ul>
+<li>1er parcial
+<ul>
+<li>DER/MER</li>
+<li>Normalización</li>
+<li>AR CRT</li>
+</ul>
+</li>
+<li>2do parcial
+<ul>
+<li>concurrencia y recuperabilidad</li>
+<li>noSQL</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Laboratorios
+<ul>
+<li>SQL</li>
+<li>Optimización</li>
+</ul>
+</li>
+</ul>
+<h2 id="overview-mer"><a class="header" href="#overview-mer">Overview MER</a></h2>
+<p><strong>Todo DER</strong> tiene que tener claves y atributos, (a veces los vamos a
+obviar).
+El <strong>MER</strong> lo hacemos con <strong>D</strong>iagramas <strong>E</strong>ntidad <strong>R</strong>elación. Ahí tenemos:</p>
+<ul>
+<li>relaciones
+<ul>
+<li>unarias</li>
+<li>binarias</li>
+<li>ternarias</li>
+</ul>
+</li>
+<li>cardinalidad: nro de elementos de una entidad que se relacionan con otro.
+<ul>
+<li>uno a uno</li>
+<li>uno a muchos</li>
+<li>muchos a muchos</li>
+</ul>
+</li>
+<li>participación: cuántos elementos del conjunto pertenecen a la relación:
+<ul>
+<li>parcial: sólo una parte del conjunto está relacionado con algún otro.</li>
+<li>total: todos están en algún elemento de la relación.</li>
+</ul>
+</li>
+</ul>
+<p>Ej:</p>
+<pre class="mermaid">graph LR;
+  B[se relaciona]-- 1 --&gt;A[Pelicula];
+  B[se relaciona]-- N --&gt;C[Estudio];
+</pre>
+<ul>
+<li>
+<p>rol: el rol de una entidad en una relación.</p>
+<ul>
+<li>en una unaria es necesario agregarlo para evitar ambiguedades.</li>
+<li>siempre tiene que haber una participación parcial</li>
+</ul>
+</li>
+<li>
+<p>Las únicas interrelaciones que admiten atributos son las M:N.</p>
+<ul>
+<li>Más de 1, 2 atributos no deberían haber. Pensar si esa relación no es mejor una entidad.</li>
+<li>No debería tener que agregar un atributo identificador artificial</li>
+</ul>
+</li>
+</ul>
+<h3 id="ternarias"><a class="header" href="#ternarias">Ternarias</a></h3>
+<ul>
+<li>para leerlo tomo de a pares. ej:
+<blockquote>
+<p>Un instructor en un conjunto de semestres da varias materias</p>
+</blockquote>
+</li>
+<li>se toman de a pares las entidades, y tiene que tener sentido que
+para cada par de elementos de dos entidades tienen que estar
+relacionado con uno del resto.
+<ul>
+<li>Ojo, es distinto a participación total/parcial</li>
+</ul>
+</li>
+<li>binarias o ternarias?
+<ul>
+<li>Idealmente quiero el modelo más simple</li>
+<li>Pero hay casos que binaria no alcanza. Ej:</li>
+</ul>
+<blockquote>
+<p>José ensenó bases de datos en el 1er cuat de 1964. </p>
+</blockquote>
+<ul>
+<li>Sin embargo, con una binaria puedo saber que:
+<ul>
+<li>José ensenó bases de datos</li>
+<li>Bases de datos se dio en el 1er cuat de 1964</li>
+<li>José ensenó en el 1er cuat de 1964</li>
+</ul>
+</li>
+<li>... No puedo recuperar toda la info</li>
+<li>cuando le meto la ternaria, me doy cuenta de que hay redundancia y puedo sacar las binarias</li>
+</ul>
+</li>
+</ul>
+<h3 id="jerarquías"><a class="header" href="#jerarquías">Jerarquías</a></h3>
+<ul>
+<li>Particiono con algún sentido una entidad
+<ul>
+<li>una entidad e1, e2 cumple que <code>es_un(e1, e2)</code> cuando es una subentidad de otra</li>
+</ul>
+</li>
+<li><strong>HEREDAN</strong> la clave de la superentidad</li>
+<li>cobertura
+<ul>
+<li>total, cuando cubro todo</li>
+<li>parcial (marco con circulito en la superentidad como con las relaciones comunes)</li>
+</ul>
+</li>
+<li>solapamiento
+<ul>
+<li>disjuntas (marco con una <code>d</code>)</li>
+<li>con solapamiento</li>
+</ul>
+</li>
+<li>pistas para subentidades:
+<ul>
+<li>una parte siempre se relaciona con algo y la otra no</li>
+<li>una parte tiene un atributo que la otra no</li>
+</ul>
+</li>
+<li>puedo armar varias jerarquías para una misma entidad</li>
+</ul>
+<h3 id="agregación"><a class="header" href="#agregación">Agregación</a></h3>
+<p>Supongamos por ejemplo, que tenemos docentes, materias y algunos
+cursos realizan encuestas de evaluación docentes. Un docente dando una
+materia puede no recibir encuestas, entonces no puedo usar una
+ternaria. Y si la encuesta fuese obligatoria? Tampoco, porque no puedo
+cargar al docente/materia hasta recibir la primer encuesta. </p>
+<p>Con agregación, trato a una interrelación (junto a las entidades
+vinculadas) como una entidad en sí mismo. <strong>Sólo es posible</strong> en relaciones <strong>M:N</strong></p>
+<p>Hay un apunte sobre todo esto en el campus.</p>
+<pre class="mermaid">graph TD;
+  A--&gt;B;
+  A--&gt;C;
+</pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="contributors"><a class="header" href="#contributors">Contributors</a></h1>
 <ul>
 <li><a href="https://github.com/mFragaBA">mFragaBA</a></li>
@@ -280,6 +429,8 @@ llevarlos a cabo.</li>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+        <script type="text/javascript" src="mermaid.min.js"></script>
+        <script type="text/javascript" src="mermaid-init.js"></script>
         <script type="text/javascript">
         window.addEventListener('load', function() {
             MathJax.Hub.Register.StartupHook('End', function() {
