@@ -3,7 +3,7 @@
 [Introduccion](introduccion.md)
 
 # Primer Parcial
-- [Chapter 1](./chapter_1.md)
+- [Teórica - 18/08](./teoricas/18_08.md)
 
 # Segundo Parcial
 
