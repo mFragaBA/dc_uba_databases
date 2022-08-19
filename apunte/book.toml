@@ -1,0 +1,29 @@
+[book]
+authors = ["Martin Fraga"]
+language = "es"
+multilingual = true
+src = "src"
+title = "Apuntes de Bases de Datos - 2c2022"
+
+[build]
+create-missing = true
+
+[output.html]
+mathjax-support = true
+git-repository-url = "https://github.com/mFragaBA/dc_uba_databases"
+git-repository-icon = "fa-github"
+
+[output.html.print]
+enable = true
+page-break = true
+
+[output.html.playground]
+editable = false
+copyable = true
+line-numbers = false
+runnable = true
+
+[output.html.search]
+enable = true
+limit-results = 15
+boost-title = 2
