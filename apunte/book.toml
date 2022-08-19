@@ -15,6 +15,7 @@ command = "mdbook-mermaid"
 mathjax-support = true
 git-repository-url = "https://github.com/mFragaBA/dc_uba_databases"
 git-repository-icon = "fa-github"
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
 
 [output.html.print]
 enable = true
