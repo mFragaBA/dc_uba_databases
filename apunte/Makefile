@@ -1,7 +1,7 @@
 .PHONY: deploy
 
 build:
-	mkdbook build
+	mdbook build
 
 deploy: book
 	@echo "====> deploying to github"
