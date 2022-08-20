@@ -276,6 +276,11 @@ relacionado con uno del resto.
 </li>
 <li>puedo armar varias jerarquías para una misma entidad</li>
 </ul>
+<pre class="mermaid">graph LR;
+  A[Clase] --&gt; B( );
+  B( ) -- tipo --&gt;C[Laboratorio];
+  B( ) --&gt;D[Practica];
+</pre>
 <h3 id="agregación"><a class="header" href="#agregación">Agregación</a></h3>
 <p>Supongamos por ejemplo, que tenemos docentes, materias y algunos
 cursos realizan encuestas de evaluación docentes. Un docente dando una
@@ -289,6 +294,170 @@ vinculadas) como una entidad en sí mismo. <strong>Sólo es posible</strong> en 
   A--&gt;B;
   A--&gt;C;
 </pre>
+<h2 id="consideraciones-de-diseño"><a class="header" href="#consideraciones-de-diseño">Consideraciones de diseño</a></h2>
+<ul>
+<li>Respetar requerimientos</li>
+<li>evitar redundancia</li>
+<li>entidad o atributo? ej:</li>
+</ul>
+<pre class="mermaid">graph TD;
+  A[Empleado];
+  C[Cargo];
+  N[Nombre];
+  L[Nro Legajo];
+
+  A --&gt; C;
+  A --&gt; N;
+  A --&gt; L;
+</pre>
+<ul>
+<li>Entidad o interrelacion?
+<ul>
+<li>Muchos atributos?</li>
+<li>Se complica la búsqueda de información?</li>
+<li>Entidad débil
+<ul>
+<li>Una entidad que depende completamente de otra</li>
+<li>La clave se forma con algún ID + la clave de la fuerte</li>
+<li>Ej: items de una factura, asientos de un avión</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Sustantivos en singular para entidades</li>
+<li>Verbos para interrelaciones</li>
+<li>de izquierda a derecha y arriba a abajo</li>
+<li>replicar entidades (agregarles una marca para que se note que es la
+misma entidad)</li>
+<li>Elegir <strong>buenas claves</strong>
+<ul>
+<li>Inmutable</li>
+<li>En muchos casos se genera una clave artificial (surrogateKey)</li>
+</ul>
+</li>
+<li>Ojo con trampas
+<ul>
+<li>Fan traps
+<ul>
+<li>El camino entre entidades es ambiguo (suele pasar con varias <strong>1:N</strong>)</li>
+</ul>
+</li>
+<li>Sink traps
+<ul>
+<li>Parece que hay una relación entre entidades pero en el camino se pierde.</li>
+<li>Suele pasar cuando hay relaciones parciales.</li>
+</ul>
+</li>
+<li>En el parcial, prestar atención a los requerimientos de las consultas.</li>
+</ul>
+</li>
+<li>Las cosas importantes que no se pueden representar van a la sección de restricciones adicionales</li>
+</ul>
+<h2 id="ejercicios"><a class="header" href="#ejercicios">Ejercicios</a></h2>
+<h3 id="ejercicio-1"><a class="header" href="#ejercicio-1">Ejercicio 1</a></h3>
+<p>Casa de subastas quiere registrar las transacciones que realiza.</p>
+<ul>
+<li>Los productos se agrupan en lotes (nro catálogo, descripción, precio
+de salida).</li>
+<li>Para cada producto se almacena el código de producto, nombre,
+descripción y foto.</li>
+<li>Los clientes(código, nombre, apellido, dni, mail) hacen pujas
+(fecha/hora, monto)</li>
+</ul>
+<pre class="mermaid">graph LR;
+  C[Cliente];
+  P[Producto];
+  L[Lote];
+
+  H[Hace una Puja];
+  PL[Pertenece a un];
+
+  C --&gt; Z1[**codigo**]
+  C --&gt; Z2[nombre]
+  C --&gt; Z3[dni]
+  C --&gt; Z4[mail]
+
+  P --&gt; X1[**codigo**]
+  P --&gt; X2[descr.]
+  P --&gt; X3[nombre]
+  P --&gt; X4[foto]
+
+  L --&gt; Y1[**nro catalogo**]
+  L --&gt; Y2[descr.]
+  L --&gt; Y3[precio]
+
+  P -- N --&gt; PL 
+  L -- 1 --&gt; PL
+
+  C -- M --&gt; H;
+  L -- N --&gt; H;
+
+  H --&gt; FH[fecha/hora]
+  H --&gt; MON[Monto]
+</pre>
+<ul>
+<li>Hay productos que no están asociados a ningún lote (part. parcial)</li>
+<li>En este modelo, el cliente sólo puede pujar una vez. Para
+solucionarlo puedo:
+<ul>
+<li>Marcar como clave la fecha y hora</li>
+<li>Hacer una puja como entidad
+<ul>
+<li>Variante: Puja es una entidad débil con clave fecha/hora
+<ul>
+<li>No puedo meterlo directo como clave porque puedo tener varios
+clientes pujando al mismo tiempo en salas distintas.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ```mermaid -->
+<!-- erDiagram -->
+<!---->
+<!--   CUSTOMER ||--o{ ORDER : places -->
+<!--   ORDER ||--|{ LINE-ITEM : contains -->
+<!--   CUSTOMER }|..|{ DELIVERY-ADDRESS : uses -->
+<!-- ``` -->
+<!-- ```mermaid -->
+<!-- erDiagram -->
+<!--     CUSTOMER ||--o{ ORDER : places -->
+<!--     CUSTOMER { -->
+<!--         string name -->
+<!--         string custNumber -->
+<!--         string sector -->
+<!--     } -->
+<!--     ORDER ||--|{ LINE-ITEM : contains -->
+<!--     ORDER { -->
+<!--         int orderNumber -->
+<!--         string deliveryAddress -->
+<!--     } -->
+<!--     LINE-ITEM { -->
+<!--         string productCode -->
+<!--         int quantity -->
+<!--         float pricePerUnit -->
+<!--     } -->
+<!-- ``` -->
+<ul>
+<li>No confundir: no me sale modelar esto con agrego restricciones porque posta no se puede expresar en el der</li>
+</ul>
+<h3 id="ejercicio-2"><a class="header" href="#ejercicio-2">Ejercicio 2</a></h3>
+<p>Atributos modelo y marca pasarlos a entidades, y ojo con cómo armo las
+interrelaciones (tiene que ser auto &lt;-&gt; modelo &lt;-&gt; marca)</p>
+<ul>
+<li>No busquen cosas que no hay, o sea leer bien todo el enunciado y no
+buscar entidades débiles, relaciones ternarias, agregaciones, etc.</li>
+</ul>
+<h3 id="ejercicio-3"><a class="header" href="#ejercicio-3">Ejercicio 3</a></h3>
+<ul>
+<li>domicilio asumo que no hay drama</li>
+<li>provincias son pocas así que las puedo hacer como tabla</li>
+<li>pregunta: armo una jerarquía con médico y paciente? <strong>NO</strong> Pensar,
+qué sería el <code>es_un</code>? mamífero?</li>
+<li>el ingreso no sería una entidad débil? No, porque en el enunciado aclara que tienen un código autoincremental</li>
+</ul>
 
                     </main>
 
