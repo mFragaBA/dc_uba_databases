@@ -140,7 +140,48 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="teórica---1708"><a class="header" href="#teórica---1708">Teórica - 17/08</a></h1>
-<p>Ausente. Pongo un resúmen del primer capítulo de <em>Database Systems:
+<p>Se definió el concepto de <strong>DER</strong> (<strong>D</strong>iagramas <strong>E</strong>ntidad <strong>R</strong>elación) describe la interrelación interrelated de cosas de interés dentro del alcance del dominio de un problema.</p>
+<p>Algunos conceptos a utilizar</p>
+<ul>
+<li>Entidad: Objeto relevante para el sistema. Tiene sentido tenerla cuando tiene características propias. Se representa con un cuadrado</li>
+<li>Atributo: Cualquier característica relevante de la entidad propia. Se representa con un círculo
+<ul>
+<li>Atributo simple: Atributo sin características especiales</li>
+<li>Atributo identificatorio: Identificar una instancia unívocamente</li>
+<li>Atributo compuesto: Aquel que se puede dividir</li>
+<li>Atributo multivariado: Cuando podria ser mas de uno</li>
+</ul>
+</li>
+<li>Interrelaciones: Vínculo entre dos entidades. Se representa con un rombo. Contiene varios aspectos:
+<ul>
+<li>Interrelaciones identificatorias.</li>
+<li>Cardinalidad: tiene que ser una relación ACTUAL. Explica la cantidad de relaciones que se pueden dar
+<ul>
+<li>1-1</li>
+<li>1-n</li>
+<li>n-m</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Participación:
+<ul>
+<li>Parcial: Si existe alguno que puede no cumplir la relación</li>
+<li>Completa: Si todos cumplen con la relación</li>
+</ul>
+</li>
+<li>Relaciones ternarias: Se necesitan las 3 identidades al mismo tiempo para que la relación funcione. Es bastante útil pero aparece muy poco</li>
+<li>Agregación: Vincular una interrelación con una identidad. Además esta vinculación tiene que ser temporalmente posterior con respecto a la interrelación. Se denota con un rectángulo conteniendo a la interrelación y sus entidades vinculadas</li>
+<li>Jerarquías de Especialización: Cada subentidad &quot;hereda&quot; todas las interrelaciones y atributos de la superentidad. No puede existir un elemento en una subentidad que no figure en la superentidad
+<ul>
+<li>Cobertura total: Cada elemento de la superentidad debe estar en al menos una de las subentidades</li>
+<li>Cobertura parcial: PUede haber elementos de la superentidad que no estén en ninguno de las subentidades</li>
+<li>Jerarquías disjuntas: Cada elemento de la superentidad está a lo sumo en una subentidad</li>
+<li>Jerarquías con solapamiento: Los elementos de la superentidad pueden estar en más de una subentidad</li>
+</ul>
+</li>
+</ul>
+<p>Pongo un resúmen del primer capítulo de <em>Database Systems:
 The Complete Book</em> y del capítulo 2 del <em>Principles of Database and
 Knowledge Base Systems</em></p>
 <h2 id="database-systems-the-complete-book"><a class="header" href="#database-systems-the-complete-book">Database Systems: The Complete Book</a></h2>
