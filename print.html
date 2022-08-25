@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduccion.html">Introduccion</a></li><li class="chapter-item expanded affix "><li class="part-title">Primer Parcial</li><li class="chapter-item expanded "><a href="teoricas/17_08.html"><strong aria-hidden="true">1.</strong> Teórica - 17/08</a></li><li class="chapter-item expanded "><a href="practicas/19_08.html"><strong aria-hidden="true">2.</strong> Práctica - 19/08</a></li><li class="chapter-item expanded affix "><li class="part-title">Segundo Parcial</li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="misc/contributors.html">Contributors</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduccion.html">Introduccion</a></li><li class="chapter-item expanded affix "><li class="part-title">Primer Parcial</li><li class="chapter-item expanded "><a href="teoricas/index.html"><strong aria-hidden="true">1.</strong> Teórica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="teoricas/17_08.html"><strong aria-hidden="true">1.1.</strong> Teórica - 17/08</a></li><li class="chapter-item expanded "><a href="teoricas/24_08.html"><strong aria-hidden="true">1.2.</strong> Teórica - 24/08</a></li></ol></li><li class="chapter-item expanded "><a href="practicas/index.html"><strong aria-hidden="true">2.</strong> Práctica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="practicas/19_08.html"><strong aria-hidden="true">2.1.</strong> Práctica - 19/08</a></li></ol></li><li class="chapter-item expanded "><a href="guias/index.html"><strong aria-hidden="true">3.</strong> Guías de Ejercicios</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guias/g1.html"><strong aria-hidden="true">3.1.</strong> Guía de Ejercicios 1</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Segundo Parcial</li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="misc/contributors.html">Contributors</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,6 +147,7 @@ Buenos Aires dada en el segundo cuatrimestre de 2022.</p>
 recomienda usar para estudiar para los parciales. A pesar de eso,
 espero que les pueda servir de ayuda. Cualquier sugerencia o
 corrección es bienvenida.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="teórica"><a class="header" href="#teórica">Teórica</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="teórica---1708"><a class="header" href="#teórica---1708">Teórica - 17/08</a></h1>
 <p>Se definió el concepto de <strong>DER</strong> (<strong>D</strong>iagramas <strong>E</strong>ntidad <strong>R</strong>elación) describe la interrelación interrelated de cosas de interés dentro del alcance del dominio de un problema.</p>
 <p>Algunos conceptos a utilizar</p>
@@ -290,6 +291,350 @@ optimizer para las queries y genera un <strong>query plan</strong>.</li>
 llevarlos a cabo.</li>
 </ol>
 <h2 id="principles-of-database-and-knowledge-base-systems-ch-2"><a class="header" href="#principles-of-database-and-knowledge-base-systems-ch-2">Principles of Database and Knowledge Base Systems (ch. 2)</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="teórica---2408"><a class="header" href="#teórica---2408">Teórica - 24/08</a></h1>
+<p>Repaso:</p>
+<ul>
+<li>Qué es una entidad? Un objeto relevante para mi problema</li>
+<li>Qué es un atributo? Una característica relevante de una entidad</li>
+<li>Una interrelación? Una relación entre dos entidades</li>
+</ul>
+<p>Había quedado algo pendiente: las bases de datos relacionales se crearon en el 68' (Edgar Cobb)</p>
+<blockquote>
+<p>Todas las bd relacionales no eran relacionales de verdad</p>
+</blockquote>
+<p>Propuso un gran avance para lo que era ese momento:</p>
+<ul>
+<li>
+<p>Hasta ese momento había cobol</p>
+</li>
+<li>
+<p>Para guardar los datos, guardaban los datos en un csv casi</p>
+<ul>
+<li>Estaba todo muy pegado a la parte física
+<ul>
+<li>Tengo que saber dónde estaba el archivo, el formato, la cantidad de campos, etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>El avance de Cobb es separar en &quot;capas&quot;</p>
+</li>
+<li>
+<p>Vistas - Externo</p>
+<ul>
+<li>Independencia Lógica: El usuario final puede consumir los datos sin saber dónde están, ni en qué tabla.
+<ul>
+<li>Ej: La afip puede cambiar todo el sistema y vos seguir viendo el mismo ticket</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Tablas - Conceptual</p>
+<ul>
+<li>Los que hacen desarrollo suelen estar a este nivel</li>
+<li>No necesito saber cuántos campos tiene la tabla</li>
+<li>Independencia física</li>
+</ul>
+</li>
+<li>
+<p>disco - Interno (DBA) </p>
+<ul>
+<li>sabe dónde están los archivos, el formato, etc</li>
+</ul>
+</li>
+</ul>
+<p>Algo relacionado a la idea: Data as a Service</p>
+<ul>
+<li>Los datos tienen mucha complejidad</li>
+<li>Cada vez se trata de que esa lógica esté más aislada</li>
+</ul>
+<h2 id="modelo-relacional"><a class="header" href="#modelo-relacional">Modelo Relacional</a></h2>
+<p>1 Tabla = 1 Relación</p>
+<ul>
+<li><code>R(A, B, C, D)</code> (Los dominios, a.k.a atributos)</li>
+<li>\[R \subset DOM(A) \times DOM(B) \times DOM(C) \times DOM(D) \]</li>
+<li>R es un conjunto</li>
+<li>\[{(a, b), (a, b)} = {(a, b)}\]
+<ul>
+<li>o sea que <strong>no tengo dos registros iguales</strong></li>
+<li>una relación <strong>siempre admite clave</strong>
+<ul>
+<li>como las bases de ese momento no obligan a crear claves
+primarias entonces las bases de datos de ese momento no eran
+relacionales posta</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>No puedo asumir que los datos están guardados en un orden
+<ul>
+<li>oracle guarda los datos físicos según primary key, sin embargo eso es una desición de implementación. El modelo no te obliga a hacer eso</li>
+<li>Puedo ordenar al recuperar la data</li>
+</ul>
+</li>
+</ul>
+<h3 id="restricciones-de-integridad"><a class="header" href="#restricciones-de-integridad">Restricciones de Integridad</a></h3>
+<p>recuerdo: esquema == la estructura de la base de datos</p>
+<p>La base de datos va a chequear esto <strong>SIEMPRE</strong>. Rebota todo lo que no
+lo cumpla. Por eso es importante transladar todo lo posible al
+esquema.</p>
+<ul>
+<li>De dominio
+<ul>
+<li>tipo de datos</li>
+<li>check constraint (ej, rango)</li>
+<li>Nullidad
+<ul>
+<li>Null es <strong>NADA</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>De clave
+<ul>
+<li>Unicidad
+<ul>
+<li>Super Clave</li>
+<li>Clave Candidata (Clave Primaria) (Unicidad + Minimilidad) 
+<ul>
+<li>La DB no implementa Minimilidad, no tiene forma de verificar si lo que le digo es mínimo o no</li>
+<li>Minimilidad = No le sobran campos, no depende del tamaño</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Foránea</li>
+</ul>
+</li>
+</ul>
+<p>\[ 
+R(A_1,\dots,A_n) \\
+T \subseteq {A_1,\dots,A_n} \\
+\]</p>
+<p>T es SC de R sii
+\[
+t_1[T] = t_2[T] \implies t_1=t_2
+\]</p>
+<p>T es CC de R sii</p>
+<ul>
+<li>T es SC</li>
+<li>No existe una clave S contenida en T tal que S es SC</li>
+</ul>
+<p>warning: No borrar en cascada</p>
+<h3 id="pasaje-de-der-a-tabla"><a class="header" href="#pasaje-de-der-a-tabla">Pasaje de DER a tabla</a></h3>
+<p>El pasaje es automático. Hay que seguir las siguientes reglas nomás:</p>
+<ol>
+<li>Cada entidad tiene 1 tabla</li>
+<li>Todas las relaciones <code>M:N</code> tienen una tabla</li>
+<li>Si tengo una <code>1:N</code>, va del lado del N</li>
+<li>En una ternaria <code>N:M:1</code>, creo tabla y pongo como PKs la clave de la <code>N</code> y la de la <code>M</code></li>
+</ol>
+<p>En el ejemplo de las diapos:</p>
+<ul>
+<li>Alumno
+<ul>
+<li>LU(PK)</li>
+<li>Calle</li>
+<li>Nro</li>
+<li>Piso</li>
+<li>Depto</li>
+</ul>
+</li>
+</ul>
+<p>Podría definir un tipo compuesto con calle, nro, piso, depto. Puedo
+reutilizarlo también en otras tablas.</p>
+<ul>
+<li>Materia
+<ul>
+<li>Código(PK)</li>
+<li>Nombre</li>
+<li>legajo (FK - Profesor)</li>
+</ul>
+</li>
+</ul>
+<p>Como profesor es parcial, lo pongo en materia porque toda materia
+tiene un profesor (un profesor capaz que no tiene materia)</p>
+<ul>
+<li>Curso
+<ul>
+<li>Código (PK)(FK - materia)</li>
+<li>Turno (PK)</li>
+</ul>
+</li>
+</ul>
+<p>Es <strong>una sóla primary</strong>, pero es compuesta por ser entidad débil.
+Cuando uno define las FK tiene que decir de qué tabla son.</p>
+<ul>
+<li>MailAlumno
+<ul>
+<li>LU (PK) (FK - alumno)</li>
+<li>email (PK)</li>
+</ul>
+</li>
+</ul>
+<p>Los atributos multivaluados necesitan ir a una tabla aparte</p>
+<ul>
+<li>Profesor
+<ul>
+<li>legajo(PK)(FK - Profesor)</li>
+</ul>
+</li>
+</ul>
+<p>Es una especialización de Docente, así que hereda la clave de docente</p>
+<ul>
+<li>
+<p>Docente</p>
+<ul>
+<li>legajo (PK)</li>
+</ul>
+</li>
+<li>
+<p>Rol</p>
+<ul>
+<li>id_rol(PK)</li>
+</ul>
+</li>
+</ul>
+<p>Tengo las entidades y los atributos, me faltan las interrelaciones</p>
+<ul>
+<li>Rindió
+<ul>
+<li>LU (PK) (FK - Alumno)</li>
+<li>Código (PK) (FK - Materia)</li>
+<li>FechaExamen (PK)</li>
+</ul>
+</li>
+</ul>
+<p>Acá tres atributos conforman la PK</p>
+<ul>
+<li>Quiere Dictar
+<ul>
+<li>legajo (FK - Profesor)</li>
+<li>código (FK - Materia)</li>
+</ul>
+</li>
+</ul>
+<p>Por eso necesitaba la especialización, porque con esto restrinjo a tener un profesor</p>
+<ul>
+<li>Dicta
+<ul>
+<li>legajo (PK) (FK - Docente)</li>
+<li>id_rol (FK - Rol)</li>
+<li>código (PK) (FK - Curso)</li>
+<li>turno (PK) (FK - Curso)</li>
+</ul>
+</li>
+</ul>
+<p>código + turno forman la FK de Curso, y la PK se forma con las de las <code>N:M</code> pero no la <code>1</code>
+Ahora Dicta si tiene FK del docente</p>
+<p>Ejercicio: Cómo hago cuando tengo agregación? Usar el ejemplo de Curso, Materia, Encuesta</p>
+<ul>
+<li>La PK es el id_encuesta</li>
+<li>El linkeo va en la tabla de Encuesta</li>
+<li>La FK se forma con el legajo y el código</li>
+<li>La FK es Fk de la interrelación Cursa (tiene sentido porque en una
+agregación estoy considerando la interrelación como una entidad)</li>
+</ul>
+<h2 id="lenguajes-de-consulta"><a class="header" href="#lenguajes-de-consulta">Lenguajes de Consulta</a></h2>
+<p>Recuerdo: DML - Data Manipulation Language</p>
+<p>Existen 3 lenguajes para este problema</p>
+<ul>
+<li>AR
+<ul>
+<li>SQL es una implementación de Álgebra Relacional</li>
+</ul>
+</li>
+<li>CRT</li>
+<li>CRD</li>
+</ul>
+<h3 id="Álgebra-relacional"><a class="header" href="#Álgebra-relacional">Álgebra Relacional</a></h3>
+<p>las ops de AR <strong>tienen que ser cerradas</strong> respecto al dominio original</p>
+<p>Ops Unarias:</p>
+<ul>
+<li>proyección
+<ul>
+<li>Recupero un/unos campo/s de una tabla</li>
+<li>\[\Pi_{legajo}(ALUMNO)\]</li>
+<li>Es el <code>SELECT DISTINCT</code> (caro) de SQL.</li>
+</ul>
+</li>
+<li>selección
+<ul>
+<li>recupera registros que cumplan una propiedad determinada</li>
+<li>traigo los alumnos cuyo código de carrera sea A: \[\sigma_{codCarrera = &quot;A&quot;}(ALUMNO)\]</li>
+</ul>
+</li>
+<li>renombre
+<ul>
+<li>Es el <code>AS</code> de SQL</li>
+<li>De campos<!-- - \\[\phi_{codCarrera = "A"}(ALUMNO)\\] -->
+</li>
+<li>De relaciones<!-- - \\[\phi_{codCarrera = "A"}(ALUMNO)\\] -->
+</li>
+</ul>
+</li>
+</ul>
+<p>ej: legajo de los alumnos que cursan la carrera A
+\[\Pi_{legajo, codCarrera}(\sigma_{codCarrera = &quot;A&quot;}(ALUMNO))\]</p>
+<p>Ops Binarias:</p>
+<ul>
+<li>Operaciones sobre relaciones &quot;Union Compatible&quot;
+<ul>
+<li>Tienen que compartir los mismos campos (nombre y tipo)</li>
+<li><strong>Unión</strong></li>
+<li><strong>Intersección</strong></li>
+<li><strong>Diferencia</strong></li>
+<li>De qué me sirve? Puedo separar en &quot;partes la query&quot; y tomar uniones de cada parte</li>
+</ul>
+</li>
+<li>Otras Operaciones
+<ul>
+<li><strong>Producto Cartesiano</strong></li>
+<li><strong>Natual Join</strong>: junto dos relaciones por un campo en común</li>
+<li><strong>Outer Join</strong>: Me permite asegurar que me traigo todos los registros de una de las dos tablas aunque no matcheen</li>
+<li>También tengo <strong>Full Outer Join</strong></li>
+<li><strong>División</strong>: me permite obtener todos los registros que tienen un valor que aparece con todos los valores del conjunto que divide
+<ul>
+<li>Esta no está en SQL</li>
+<li>El de arriba Siempre tiene que tener un campo más que el de abajo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>EJ Joins: &quot;nombre (del alumno) y legajo de las materias que aprobó por lo menos un alumno&quot;
+nota: No pongan joins de cosas que no van a usar</p>
+<p>Ej División: Nombre de los alumnos que aprobaron todas las materias de su carrera</p>
+<ul>
+<li>Agarro todas las materias aprobadas por el alumno y lo divido por todas las que cursó</li>
+</ul>
+<h3 id="cálculo-relacional-de-tuplas-crt"><a class="header" href="#cálculo-relacional-de-tuplas-crt">Cálculo Relacional de Tuplas (CRT)</a></h3>
+<ul>
+<li>Más en términos de proposiciones</li>
+<li>fórmulas
+<ul>
+<li>atómicas
+<ul>
+<li>R E Rel</li>
+<li>R.a op S.b</li>
+<li>R.a op constante o constante op R.a</li>
+</ul>
+</li>
+<li>Cuantificadores</li>
+<li>query: {t / p(t)}</li>
+</ul>
+</li>
+<li>Inseguridad del CRT/CRD
+<ul>
+<li>potencialmente puede devolverte un conjunto infinito</li>
+<li>{t \ not p(t)}</li>
+<li>para solucionarlo forzando a que el resultado pertenezca al dominio/tabla madre</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="práctica"><a class="header" href="#práctica">Práctica</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="práctica---1908"><a class="header" href="#práctica---1908">Práctica - 19/08</a></h1>
 <h2 id="presentación"><a class="header" href="#presentación">Presentación</a></h2>
 <ul>
@@ -547,9 +892,12 @@ descripción y foto.</li>
   H --&gt; MON[Monto]
 </pre>
 <ul>
-<li>Hay productos que no están asociados a ningún lote (part. parcial)</li>
-<li>En este modelo, el cliente sólo puede pujar una vez. Para
-solucionarlo puedo:
+<li>
+<p>Hay productos que no están asociados a ningún lote (part. parcial)</p>
+</li>
+<li>
+<p>En este modelo, el cliente sólo puede pujar una vez. Para
+solucionarlo puedo:</p>
 <ul>
 <li>Marcar como clave la fecha y hora</li>
 <li>Hacer una puja como entidad
@@ -564,35 +912,9 @@ clientes pujando al mismo tiempo en salas distintas.</li>
 </li>
 </ul>
 </li>
-</ul>
-<!-- ```mermaid -->
-<!-- erDiagram -->
-<!---->
-<!--   CUSTOMER ||--o{ ORDER : places -->
-<!--   ORDER ||--|{ LINE-ITEM : contains -->
-<!--   CUSTOMER }|..|{ DELIVERY-ADDRESS : uses -->
-<!-- ``` -->
-<!-- ```mermaid -->
-<!-- erDiagram -->
-<!--     CUSTOMER ||--o{ ORDER : places -->
-<!--     CUSTOMER { -->
-<!--         string name -->
-<!--         string custNumber -->
-<!--         string sector -->
-<!--     } -->
-<!--     ORDER ||--|{ LINE-ITEM : contains -->
-<!--     ORDER { -->
-<!--         int orderNumber -->
-<!--         string deliveryAddress -->
-<!--     } -->
-<!--     LINE-ITEM { -->
-<!--         string productCode -->
-<!--         int quantity -->
-<!--         float pricePerUnit -->
-<!--     } -->
-<!-- ``` -->
-<ul>
-<li>No confundir: no me sale modelar esto con agrego restricciones porque posta no se puede expresar en el der</li>
+<li>
+<p>No confundir: no me sale modelar esto con agrego restricciones porque posta no se puede expresar en el der</p>
+</li>
 </ul>
 <h3 id="ejercicio-2"><a class="header" href="#ejercicio-2">Ejercicio 2</a></h3>
 <p>Atributos modelo y marca pasarlos a entidades, y ojo con cómo armo las
@@ -609,6 +931,43 @@ buscar entidades débiles, relaciones ternarias, agregaciones, etc.</li>
 qué sería el <code>es_un</code>? mamífero?</li>
 <li>el ingreso no sería una entidad débil? No, porque en el enunciado aclara que tienen un código autoincremental</li>
 </ul>
+<h3 id="ejercicio-4"><a class="header" href="#ejercicio-4">Ejercicio 4</a></h3>
+<p>No lo llegamos a ver en clase, pero un poco la idea va de que tengo 3
+entidades:</p>
+<ul>
+<li>Operario</li>
+<li>Tarea</li>
+<li>Inspector</li>
+</ul>
+<p>Inicialmente podría pensar que un Operario realiza Tareas y cada tarea
+puede tener varios Inspectores. Si los inspectores revisan a todos los
+operarios que están haciendo esa tarea entonces estamos ok. Pero si el
+inspector evalúa al operario que está haciendo esa tarea entonces no
+nos alcanza, pues estaríamos cayendo en la trampa del abanico.</p>
+<p>En ese segundo caso, una solución sería una ternaria entre operario,
+inspector y tarea, no? <strong>NO</strong>, porque no necesariamente voy a tener
+inspectores en todos los operarios que hagan tareas. Es por eso que en
+este caso podemos usar una agregación que relaciona al operario
+haciendo una tarea con los inspectores.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="guías-de-ejercicios"><a class="header" href="#guías-de-ejercicios">Guías de Ejercicios</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="guía-de-ejercicios-1"><a class="header" href="#guía-de-ejercicios-1">Guía de Ejercicios 1</a></h1>
+<h2 id="ejercicios-introductorios"><a class="header" href="#ejercicios-introductorios">Ejercicios Introductorios</a></h2>
+<h3 id="ejercicio-1-1"><a class="header" href="#ejercicio-1-1">Ejercicio 1</a></h3>
+<h3 id="ejercicio-2-1"><a class="header" href="#ejercicio-2-1">Ejercicio 2</a></h3>
+<h3 id="ejercicio-3-1"><a class="header" href="#ejercicio-3-1">Ejercicio 3</a></h3>
+<h3 id="ejercicio-4-1"><a class="header" href="#ejercicio-4-1">Ejercicio 4</a></h3>
+<h3 id="ejercicio-5"><a class="header" href="#ejercicio-5">Ejercicio 5</a></h3>
+<h3 id="ejercicio-6"><a class="header" href="#ejercicio-6">Ejercicio 6</a></h3>
+<h3 id="ejercicio-7"><a class="header" href="#ejercicio-7">Ejercicio 7</a></h3>
+<h2 id="ejercicios-avanzados"><a class="header" href="#ejercicios-avanzados">Ejercicios Avanzados</a></h2>
+<h3 id="ejercicio-1-2"><a class="header" href="#ejercicio-1-2">Ejercicio 1</a></h3>
+<h3 id="ejercicio-2-2"><a class="header" href="#ejercicio-2-2">Ejercicio 2</a></h3>
+<h3 id="ejercicio-3-2"><a class="header" href="#ejercicio-3-2">Ejercicio 3</a></h3>
+<h3 id="ejercicio-4-2"><a class="header" href="#ejercicio-4-2">Ejercicio 4</a></h3>
+<h3 id="ejercicio-5-1"><a class="header" href="#ejercicio-5-1">Ejercicio 5</a></h3>
+<h3 id="ejercicio-6-1"><a class="header" href="#ejercicio-6-1">Ejercicio 6</a></h3>
+<h3 id="ejercicio-7-1"><a class="header" href="#ejercicio-7-1">Ejercicio 7</a></h3>
+<h3 id="ejercicio-8"><a class="header" href="#ejercicio-8">Ejercicio 8</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="contributors"><a class="header" href="#contributors">Contributors</a></h1>
 <ul>
 <li><a href="https://github.com/mFragaBA">mFragaBA</a></li>

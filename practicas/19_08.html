@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduccion.html">Introduccion</a></li><li class="chapter-item expanded affix "><li class="part-title">Primer Parcial</li><li class="chapter-item expanded "><a href="../teoricas/17_08.html"><strong aria-hidden="true">1.</strong> Teórica - 17/08</a></li><li class="chapter-item expanded "><a href="../practicas/19_08.html" class="active"><strong aria-hidden="true">2.</strong> Práctica - 19/08</a></li><li class="chapter-item expanded affix "><li class="part-title">Segundo Parcial</li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="../misc/contributors.html">Contributors</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduccion.html">Introduccion</a></li><li class="chapter-item expanded affix "><li class="part-title">Primer Parcial</li><li class="chapter-item expanded "><a href="../teoricas/index.html"><strong aria-hidden="true">1.</strong> Teórica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../teoricas/17_08.html"><strong aria-hidden="true">1.1.</strong> Teórica - 17/08</a></li><li class="chapter-item expanded "><a href="../teoricas/24_08.html"><strong aria-hidden="true">1.2.</strong> Teórica - 24/08</a></li></ol></li><li class="chapter-item expanded "><a href="../practicas/index.html"><strong aria-hidden="true">2.</strong> Práctica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../practicas/19_08.html" class="active"><strong aria-hidden="true">2.1.</strong> Práctica - 19/08</a></li></ol></li><li class="chapter-item expanded "><a href="../guias/index.html"><strong aria-hidden="true">3.</strong> Guías de Ejercicios</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guias/g1.html"><strong aria-hidden="true">3.1.</strong> Guía de Ejercicios 1</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Segundo Parcial</li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="../misc/contributors.html">Contributors</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -396,9 +396,12 @@ descripción y foto.</li>
   H --&gt; MON[Monto]
 </pre>
 <ul>
-<li>Hay productos que no están asociados a ningún lote (part. parcial)</li>
-<li>En este modelo, el cliente sólo puede pujar una vez. Para
-solucionarlo puedo:
+<li>
+<p>Hay productos que no están asociados a ningún lote (part. parcial)</p>
+</li>
+<li>
+<p>En este modelo, el cliente sólo puede pujar una vez. Para
+solucionarlo puedo:</p>
 <ul>
 <li>Marcar como clave la fecha y hora</li>
 <li>Hacer una puja como entidad
@@ -413,35 +416,9 @@ clientes pujando al mismo tiempo en salas distintas.</li>
 </li>
 </ul>
 </li>
-</ul>
-<!-- ```mermaid -->
-<!-- erDiagram -->
-<!---->
-<!--   CUSTOMER ||--o{ ORDER : places -->
-<!--   ORDER ||--|{ LINE-ITEM : contains -->
-<!--   CUSTOMER }|..|{ DELIVERY-ADDRESS : uses -->
-<!-- ``` -->
-<!-- ```mermaid -->
-<!-- erDiagram -->
-<!--     CUSTOMER ||--o{ ORDER : places -->
-<!--     CUSTOMER { -->
-<!--         string name -->
-<!--         string custNumber -->
-<!--         string sector -->
-<!--     } -->
-<!--     ORDER ||--|{ LINE-ITEM : contains -->
-<!--     ORDER { -->
-<!--         int orderNumber -->
-<!--         string deliveryAddress -->
-<!--     } -->
-<!--     LINE-ITEM { -->
-<!--         string productCode -->
-<!--         int quantity -->
-<!--         float pricePerUnit -->
-<!--     } -->
-<!-- ``` -->
-<ul>
-<li>No confundir: no me sale modelar esto con agrego restricciones porque posta no se puede expresar en el der</li>
+<li>
+<p>No confundir: no me sale modelar esto con agrego restricciones porque posta no se puede expresar en el der</p>
+</li>
 </ul>
 <h3 id="ejercicio-2"><a class="header" href="#ejercicio-2">Ejercicio 2</a></h3>
 <p>Atributos modelo y marca pasarlos a entidades, y ojo con cómo armo las
@@ -458,15 +435,33 @@ buscar entidades débiles, relaciones ternarias, agregaciones, etc.</li>
 qué sería el <code>es_un</code>? mamífero?</li>
 <li>el ingreso no sería una entidad débil? No, porque en el enunciado aclara que tienen un código autoincremental</li>
 </ul>
+<h3 id="ejercicio-4"><a class="header" href="#ejercicio-4">Ejercicio 4</a></h3>
+<p>No lo llegamos a ver en clase, pero un poco la idea va de que tengo 3
+entidades:</p>
+<ul>
+<li>Operario</li>
+<li>Tarea</li>
+<li>Inspector</li>
+</ul>
+<p>Inicialmente podría pensar que un Operario realiza Tareas y cada tarea
+puede tener varios Inspectores. Si los inspectores revisan a todos los
+operarios que están haciendo esa tarea entonces estamos ok. Pero si el
+inspector evalúa al operario que está haciendo esa tarea entonces no
+nos alcanza, pues estaríamos cayendo en la trampa del abanico.</p>
+<p>En ese segundo caso, una solución sería una ternaria entre operario,
+inspector y tarea, no? <strong>NO</strong>, porque no necesariamente voy a tener
+inspectores en todos los operarios que hagan tareas. Es por eso que en
+este caso podemos usar una agregación que relaciona al operario
+haciendo una tarea con los inspectores.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../teoricas/17_08.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../practicas/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../misc/contributors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../guias/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -475,10 +470,10 @@ qué sería el <code>es_un</code>? mamífero?</li>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../teoricas/17_08.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../practicas/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../misc/contributors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../guias/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
