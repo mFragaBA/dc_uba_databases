@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduccion.html">Introduccion</a></li><li class="chapter-item expanded affix "><li class="part-title">Primer Parcial</li><li class="chapter-item expanded "><a href="teoricas/index.html"><strong aria-hidden="true">1.</strong> Teórica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="teoricas/17_08.html"><strong aria-hidden="true">1.1.</strong> Teórica - 17/08</a></li><li class="chapter-item expanded "><a href="teoricas/24_08.html"><strong aria-hidden="true">1.2.</strong> Teórica - 24/08</a></li></ol></li><li class="chapter-item expanded "><a href="practicas/index.html"><strong aria-hidden="true">2.</strong> Práctica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="practicas/19_08.html"><strong aria-hidden="true">2.1.</strong> Práctica - 19/08</a></li></ol></li><li class="chapter-item expanded "><a href="guias/index.html"><strong aria-hidden="true">3.</strong> Guías de Ejercicios</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guias/g1.html"><strong aria-hidden="true">3.1.</strong> Guía de Ejercicios 1</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Segundo Parcial</li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="misc/contributors.html">Contributors</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduccion.html">Introduccion</a></li><li class="chapter-item expanded affix "><li class="part-title">Primer Parcial</li><li class="chapter-item expanded "><a href="teoricas/index.html"><strong aria-hidden="true">1.</strong> Teórica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="teoricas/17_08.html"><strong aria-hidden="true">1.1.</strong> Teórica - 17/08</a></li><li class="chapter-item expanded "><a href="teoricas/24_08.html"><strong aria-hidden="true">1.2.</strong> Teórica - 24/08</a></li></ol></li><li class="chapter-item expanded "><a href="practicas/index.html"><strong aria-hidden="true">2.</strong> Práctica</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="practicas/19_08.html"><strong aria-hidden="true">2.1.</strong> Práctica - 19/08</a></li><li class="chapter-item expanded "><a href="practicas/26_08.html"><strong aria-hidden="true">2.2.</strong> Práctica - 26/08</a></li></ol></li><li class="chapter-item expanded "><a href="guias/index.html"><strong aria-hidden="true">3.</strong> Guías de Ejercicios</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guias/g1.html"><strong aria-hidden="true">3.1.</strong> Guía de Ejercicios 1</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Segundo Parcial</li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="misc/contributors.html">Contributors</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -949,20 +949,104 @@ inspector y tarea, no? <strong>NO</strong>, porque no necesariamente voy a tener
 inspectores en todos los operarios que hagan tareas. Es por eso que en
 este caso podemos usar una agregación que relaciona al operario
 haciendo una tarea con los inspectores.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="práctica---2608"><a class="header" href="#práctica---2608">Práctica - 26/08</a></h1>
+<h2 id="crt---cálculo-relacional-de-tuplas"><a class="header" href="#crt---cálculo-relacional-de-tuplas">CRT - Cálculo Relacional de Tuplas</a></h2>
+<h3 id="ejercicio-1-1"><a class="header" href="#ejercicio-1-1">Ejercicio 1</a></h3>
+<blockquote>
+<p>Listar nombre y salario  de aquellos empleados que trabajan en el
+Depto cuyo detalle es <strong>RRHH</strong></p>
+</blockquote>
+<p>Sol:</p>
+<p>\[
+\{ t / \exists e \in \text{EMPLEADO} \land \exists d \in \text{DEPARTAMENTO} \\
+\land d.\text{detalle} = \text{RRHH} \land e.\text{depto} = d.\text{IDD} \\
+\land t.\text{nombre} = e.\text{nombre} \land t.\text{salario} = e.\text{salario}\}
+\]</p>
+<h3 id="ejercicio-2-1"><a class="header" href="#ejercicio-2-1">Ejercicio 2</a></h3>
+<p>Proveedores(<strong>idProv</strong>, nombre, direccion)
+Productos(<strong>idProd</strong>, nombre, color)
+Catalogo(<strong>idProv</strong>, <strong>idProd</strong>, precio)</p>
+<blockquote>
+<ul>
+<li>Encontrar los nombres de los proveedores que proveen algún
+producto rojo.</li>
+<li>Buscar los idProv para los proveedores que proveen todos los
+productos.</li>
+<li>Buscar los nombres de productos que no están en ningún catálogo.</li>
+</ul>
+</blockquote>
+<p>Sol:</p>
+<p>a)
+\[
+\{ t / \exists prov \in \text{PROVEEDOR} \land \exists pr \in \text{PRODUCTO} \land \exists c \in \text{CATALOGO} \\
+\land pr.\text{color} = \text{&quot;rojo&quot;} \land pr.\text{idProd} = c.\text{idProd} \\
+\land prov.\text{idProv} = c.\text{idProv} \}
+\]
+b)
+\[
+\{ t / \forall prod \in \text{PRODUCTO} \implies \exists c \in \text{CATALOGO} \\
+\land c.\text{idProd} = prod.\text{idProd} \land c.\text{idProv} = t.\text{idProv} \}
+\]
+c)
+\[
+\{ t / \exists prod \in \text{PRODUCTO} \land \nexists c \in \text{CATALOGO} \\
+\land c.\text{idProd} = prod.\text{idProd} \land prod.\text{nombre} = t.\text{nombre} \}
+\]</p>
+<blockquote>
+<p>bonus: encontrar los nombres de los proveedores que proveen <strong>todos
+los productos rojos</strong></p>
+</blockquote>
+<p>Sol:</p>
+<p>How about:
+\[
+\{ t / \forall prod \in \text{PRODUCTO} \land prod.\text{color} = \text{&quot;rojo&quot;} \implies \exists c \in \text{CATALOGO} \\
+\land c.\text{idProd} = prod.\text{idProd} \land c.\text{idProv} = t.\text{idProv} \}
+\]</p>
+<p>Si no tengo productos rojos?: We're screwed. La precondición del
+implica siempre es falsa, el implica es verdadero</p>
+<p>Y antes en el <strong>b)</strong> no tenía ese problema? Bueno, sí... pero el uno
+caso en que eso pasa es cuando no hay productos y estoy predicando
+sobre el conj. vacío de tuplas. No nos va a interesar mucho eso,
+aunque podría chequearlo si tengo ganas</p>
+<p>Entonces puedo probar con
+\[
+\{ t / (\exists prod' \in \text{PRODUCTO} \land prod'.\text{color} = \text{&quot;rojo&quot;}) \land \\
+\forall prod \in \text{PRODUCTO} \left( prod.\text{color} = \text{&quot;rojo&quot;} \implies \exists c \in \text{CATALOGO} \\
+\left( c.\text{idProd} = prod.\text{idProd} \land c.\text{idProv} = t.\text{idProv} \land \exists prov \in \text{PROVEEDORES} \\
+\left( prov \in \text{PROVEEDOR} \land c.\text{idProv} = prov.\text{idProv} \land prov.\text{nomre} = t.\text{nombre} \right)\right)\right)\}
+\]</p>
+<h3 id="ejercicio-3-1"><a class="header" href="#ejercicio-3-1">Ejercicio 3</a></h3>
+<blockquote>
+<p>Listar el nombre de los empleados que no tienen Supervisor asignado</p>
+</blockquote>
+<p>Skipped</p>
+<h2 id="ar---Álgebra-relacional"><a class="header" href="#ar---Álgebra-relacional">AR - Álgebra Relacional</a></h2>
+<p>Ops:</p>
+<p>\[
+R \cup S \\
+R \cap S \\
+R / S \\
+R - S \\
+\rho \left( a1 \rightarrow a2, b1 \rightarrow b2, R \right) </p>
+<p>\]</p>
+<h3 id="ejercicio-2-2"><a class="header" href="#ejercicio-2-2">Ejercicio 2</a></h3>
+<p>\[
+\rho \left( nombre \rightarrow nombreProv, Proveedores \right) 
+\]</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guías-de-ejercicios"><a class="header" href="#guías-de-ejercicios">Guías de Ejercicios</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guía-de-ejercicios-1"><a class="header" href="#guía-de-ejercicios-1">Guía de Ejercicios 1</a></h1>
 <h2 id="ejercicios-introductorios"><a class="header" href="#ejercicios-introductorios">Ejercicios Introductorios</a></h2>
-<h3 id="ejercicio-1-1"><a class="header" href="#ejercicio-1-1">Ejercicio 1</a></h3>
-<h3 id="ejercicio-2-1"><a class="header" href="#ejercicio-2-1">Ejercicio 2</a></h3>
-<h3 id="ejercicio-3-1"><a class="header" href="#ejercicio-3-1">Ejercicio 3</a></h3>
+<h3 id="ejercicio-1-2"><a class="header" href="#ejercicio-1-2">Ejercicio 1</a></h3>
+<h3 id="ejercicio-2-3"><a class="header" href="#ejercicio-2-3">Ejercicio 2</a></h3>
+<h3 id="ejercicio-3-2"><a class="header" href="#ejercicio-3-2">Ejercicio 3</a></h3>
 <h3 id="ejercicio-4-1"><a class="header" href="#ejercicio-4-1">Ejercicio 4</a></h3>
 <h3 id="ejercicio-5"><a class="header" href="#ejercicio-5">Ejercicio 5</a></h3>
 <h3 id="ejercicio-6"><a class="header" href="#ejercicio-6">Ejercicio 6</a></h3>
 <h3 id="ejercicio-7"><a class="header" href="#ejercicio-7">Ejercicio 7</a></h3>
 <h2 id="ejercicios-avanzados"><a class="header" href="#ejercicios-avanzados">Ejercicios Avanzados</a></h2>
-<h3 id="ejercicio-1-2"><a class="header" href="#ejercicio-1-2">Ejercicio 1</a></h3>
-<h3 id="ejercicio-2-2"><a class="header" href="#ejercicio-2-2">Ejercicio 2</a></h3>
-<h3 id="ejercicio-3-2"><a class="header" href="#ejercicio-3-2">Ejercicio 3</a></h3>
+<h3 id="ejercicio-1-3"><a class="header" href="#ejercicio-1-3">Ejercicio 1</a></h3>
+<h3 id="ejercicio-2-4"><a class="header" href="#ejercicio-2-4">Ejercicio 2</a></h3>
+<h3 id="ejercicio-3-3"><a class="header" href="#ejercicio-3-3">Ejercicio 3</a></h3>
 <h3 id="ejercicio-4-2"><a class="header" href="#ejercicio-4-2">Ejercicio 4</a></h3>
 <h3 id="ejercicio-5-1"><a class="header" href="#ejercicio-5-1">Ejercicio 5</a></h3>
 <h3 id="ejercicio-6-1"><a class="header" href="#ejercicio-6-1">Ejercicio 6</a></h3>
