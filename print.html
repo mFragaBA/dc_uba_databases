@@ -1092,6 +1092,121 @@ nuestro mejor amigo</li>
 </ul>
 </li>
 </ul>
+<h2 id="modelo-relacional-1"><a class="header" href="#modelo-relacional-1">Modelo Relacional</a></h2>
+<p>Algunos Conceptos importantes</p>
+<ul>
+<li><strong>superclave</strong>: cualquier conjunto de atributos que me permite
+reconocer una tupla</li>
+<li><strong>clave</strong>: es un conjunto minimal que define unívocamente una tupla</li>
+</ul>
+<p>Las relaciones pueden tener muchas claves:</p>
+<ul>
+<li>A las claves se las llaman claves <strong>candidatas</strong></li>
+<li>A la que elijo es la <strong>clave privada</strong></li>
+<li>A las que referencian a tuplas de otra relacion son las <strong>claves
+foráneas</strong></li>
+</ul>
+<p>Además tengo <strong>integrity constraints</strong> que son propiedades que todo el
+tiempo se verifican. Por ejemplo, una constrait de integridad
+referencial (todo lo que referencio existe)</p>
+<h3 id="pasaje-de-der-a-modelo-relacional"><a class="header" href="#pasaje-de-der-a-modelo-relacional">Pasaje de DER a Modelo Relacional</a></h3>
+<p>Es repaso del apunte, pero algo interesante que mencionó es con las
+ternarias. Como armo una nueva tabla, la clave de esa nueva tabla
+tiene que poder determinar la tupla. Notar que en algunos casos
+significa que con 1 alcanza (tengo varios para elegir), otras con 2 (y
+tengo varios pares), otras 2 pero es único y a veces tienen que ir los
+2</p>
+<p>En jerarquías recordar:</p>
+<ul>
+<li>poner el discriminante si es disjunta
+<ul>
+<li>Además, las que no tengan atributos se pueden ahorrar la creación
+de la tabla</li>
+</ul>
+</li>
+<li>no ponerlo si hay overlapping</li>
+</ul>
+<p>nota: en el <u>parcial</u>, mantener consistencia entre el DER y el modelo relacional</p>
+<h3 id="ejercicio-der--modelo-relacional"><a class="header" href="#ejercicio-der--modelo-relacional">Ejercicio DER + Modelo Relacional</a></h3>
+<p>Esto uno lo hace una vez que arma el modelo, pero para que no se
+pierda esto: <strong>revisen las preguntas</strong>, son claves para ver si tu
+modelo lo hiciste bien o te falta algo. Vas a tener que pensar cómo
+recuperás la info que te piden, seguí los caminitos en el DER.</p>
+<p>Entidades:</p>
+<ul>
+<li>Profesor</li>
+<li>Alumno (Esto hintea una jerarquía)
+<ul>
+<li>Trabajador
+<ul>
+<li>Trabaja en una Empresa</li>
+</ul>
+</li>
+<li>Desempleado</li>
+</ul>
+</li>
+<li>Curso</li>
+<li>Cursada (Por qué? porque la fecha de inicio del curso es la misma
+para todos, si lo tengo que poner cada vez que alguien se anota
+tengo muchos datos repetidos)
+<ul>
+<li>El curso es una cursada</li>
+<li>El Alumno cursa una Cursada (y tiene nota su cursada)
+<ul>
+<li>Y qué nota le pongo al principio??? (<strong>creo</strong> que lo terminamos
+ignorando, o capaz la relación se carga una vez que terminó la
+cursada y no tengo problemas)</li>
+</ul>
+</li>
+<li>Un Profesor (participación parcial) da una Cursada</li>
+</ul>
+</li>
+<li>Empresa</li>
+</ul>
+<p>La consigna dice que el que no trabaja, el curso es gratis (con un límite). Pero más
+allá de eso no se dice nada. Así que eso último no es relevante para
+el problema.</p>
+<blockquote>
+<p>Cursada entidadd débil de curso? Goooood. Tiene sentido, porque una
+cursada la puedo identificar con el id del curso y la fecha de
+inicio</p>
+</blockquote>
+<blockquote>
+<p><strong>Warning:</strong> Esto <strong>NO</strong> es un DER, si tengo tiempo lo agrego (PRs
+agregándolo are welcome as well)</p>
+</blockquote>
+<p>Para la pregunta sobre la facturas, la modelamos como una entidad y la
+agregamos a la relación de la inscripción de la cursada haciendo que
+sea una ternaria.</p>
+<ul>
+<li>Ojo con la cardinalidad porque cambia</li>
+<li>Asumimos que la factura de la dan al momento de inscribirte al
+curso. Si no tendrías que hacerlo con una agregación.</li>
+</ul>
+<p><strong>Pasaje a relacional:</strong></p>
+<p>Profesor(<strong>DNI</strong>, nombre, apellido, direccion, telefono)</p>
+<p>Alumno(<strong>DNI</strong>, nombre, apellido, direccion, telefono, fechaNacimiento, condLaboral)</p>
+<p>AlumnoTrabajador(<strong><u>DNI</u></strong>, cuil, fechaIngreso, <u>CUIT</u>)</p>
+<p>AlumnoDesempleado(<strong><u>DNI</u></strong>)</p>
+<ul>
+<li>este es medio polémico, yo lo sacaría porque no aporta nada</li>
+</ul>
+<p>Curso(<strong>codCurso</strong>, programa, duracion, titulo)</p>
+<p>Cursada(<strong><u>codCurso</u>, fechaInicio</strong>, fechaFin, <u>DNI</u>)</p>
+<ul>
+<li>El DNI es del profesor</li>
+</ul>
+<p>Empresa(<strong>CUIT</strong>, razonSocial, direccion, telefono)</p>
+<p>Factura(<strong>nro</strong>, importe, fecha)</p>
+<p>InscriptoPago(<strong><u>DNI</u>, <u>nro</u></strong>, <u>fechaInicio</u>, <strong><u>idCurso</u></strong>, nota)</p>
+<ul>
+<li>El DNI es de alumno</li>
+</ul>
+<p>InscriptoGratis(<strong><u>DNI</u>, <u>FI, idCurso</u></strong>, nota)</p>
+<blockquote>
+<p>AlumnoDesempleado no tiene tabla? No, porque no tiene atributos ni
+tiene relaciones específicas.</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guías-de-ejercicios"><a class="header" href="#guías-de-ejercicios">Guías de Ejercicios</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guía-de-ejercicios-1"><a class="header" href="#guía-de-ejercicios-1">Guía de Ejercicios 1</a></h1>
 <h2 id="ejercicios-introductorios"><a class="header" href="#ejercicios-introductorios">Ejercicios Introductorios</a></h2>
