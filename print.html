@@ -1027,17 +1027,76 @@ R \cup S \\
 R \cap S \\
 R / S \\
 R - S \\
-\rho \left( a1 \rightarrow a2, b1 \rightarrow b2, R \right) </p>
-<p>\]</p>
-<h3 id="ejercicio-2-2"><a class="header" href="#ejercicio-2-2">Ejercicio 2</a></h3>
-<p>\[
-\rho \left( nombre \rightarrow nombreProv, Proveedores \right) 
+\rho \left( a1 \rightarrow a2, b1 \rightarrow b2, R \right) \\
+\sigma_{predicado}(R) \\
+\Pi_{campos}(R)
 \]</p>
+<h3 id="ejercicios-1"><a class="header" href="#ejercicios-1">Ejercicios</a></h3>
+<p>Se vieron medio por arriba</p>
+<h3 id="ejercicio-de-parcial"><a class="header" href="#ejercicio-de-parcial">Ejercicio de parcial</a></h3>
+<blockquote>
+<p>Dado el siguiente esquema:</p>
+<p>Participantes(<strong>_nombreEvento_, _idPersona_</strong>)
+Persona(<strong>idPersona</strong>, nombre, apellido, _idProfesion_)
+Profesion(<strong>idProfesion</strong>, nombre)</p>
+<ol>
+<li>Resolver en AR y CRT: Los nombres de las profesiones tales que las
+personas de esa profesión hayan participado en todos los eventos
+menos en uno</li>
+</ol>
+</blockquote>
+<ul>
+<li>AR
+<ul>
+<li>Idea: busco a los que fueron a todos los eventos y a los que
+faltaron a al menos 2 eventos. Luego tomo todos y los resto</li>
+</ul>
+</li>
+<li>CRT
+<ul>
+<li>Idea: lo interesante es encontrar, para una profesión fijada, si
+todas las personas de esa profesión participaron de todos los
+eventos salvo uno
+<ul>
+<li>Chequear que una persona tiene esa profesión es fácil</li>
+<li>Lo siguiente es ver que esa persona <strong>participo en todos los
+eventos menos en uno</strong>
+<ul>
+<li>Basta con ver que hay un evento al que faltó, y al resto (toda
+entrada de Participantes) asistió</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Sol en clase:</p>
+<ul>
+<li>AR:
+<ul>
+<li>partir en cachitos la consulta e ir de a poco</li>
+<li>usar buenos nombres</li>
+<li>a veces conviene ir por complementos y restar cosas</li>
+<li>el producto cartesiano (y luego usar un predicado de selección) es
+nuestro mejor amigo</li>
+</ul>
+</li>
+<li>CRT: va por este lado. Algunas &quot;enseñanzas&quot; que quedaron:
+<ul>
+<li>Algunas &quot;enseñanzas&quot;:
+<ul>
+<li><strong>USAR MACROS</strong>, a.k.a funciones auxiliares, a.k.a reemplazos sintácticos</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guías-de-ejercicios"><a class="header" href="#guías-de-ejercicios">Guías de Ejercicios</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="guía-de-ejercicios-1"><a class="header" href="#guía-de-ejercicios-1">Guía de Ejercicios 1</a></h1>
 <h2 id="ejercicios-introductorios"><a class="header" href="#ejercicios-introductorios">Ejercicios Introductorios</a></h2>
 <h3 id="ejercicio-1-2"><a class="header" href="#ejercicio-1-2">Ejercicio 1</a></h3>
-<h3 id="ejercicio-2-3"><a class="header" href="#ejercicio-2-3">Ejercicio 2</a></h3>
+<h3 id="ejercicio-2-2"><a class="header" href="#ejercicio-2-2">Ejercicio 2</a></h3>
 <h3 id="ejercicio-3-2"><a class="header" href="#ejercicio-3-2">Ejercicio 3</a></h3>
 <h3 id="ejercicio-4-1"><a class="header" href="#ejercicio-4-1">Ejercicio 4</a></h3>
 <h3 id="ejercicio-5"><a class="header" href="#ejercicio-5">Ejercicio 5</a></h3>
@@ -1045,7 +1104,7 @@ R - S \\
 <h3 id="ejercicio-7"><a class="header" href="#ejercicio-7">Ejercicio 7</a></h3>
 <h2 id="ejercicios-avanzados"><a class="header" href="#ejercicios-avanzados">Ejercicios Avanzados</a></h2>
 <h3 id="ejercicio-1-3"><a class="header" href="#ejercicio-1-3">Ejercicio 1</a></h3>
-<h3 id="ejercicio-2-4"><a class="header" href="#ejercicio-2-4">Ejercicio 2</a></h3>
+<h3 id="ejercicio-2-3"><a class="header" href="#ejercicio-2-3">Ejercicio 2</a></h3>
 <h3 id="ejercicio-3-3"><a class="header" href="#ejercicio-3-3">Ejercicio 3</a></h3>
 <h3 id="ejercicio-4-2"><a class="header" href="#ejercicio-4-2">Ejercicio 4</a></h3>
 <h3 id="ejercicio-5-1"><a class="header" href="#ejercicio-5-1">Ejercicio 5</a></h3>
